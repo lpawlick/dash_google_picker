@@ -1,0 +1,1 @@
+export const GooglePicker = React.lazy(() => import(/* webpackChunkName: "GooglePicker" */ './fragments/GooglePicker.react'));
