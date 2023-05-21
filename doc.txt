@@ -1,0 +1,69 @@
+https://scribe.privacydev.net/codex/creating-custom-plotly-dash-components-933b405abd21
+- Walk through everything here https://developers.google.com/drive/picker/guides/overview?hl=de
+- Download api key and secrets.json
+- Create a virtual environment: virtualenv venv ; source venv/bin/activate
+- Install cookiecutter: pip install cookiecutter
+- Run cookiecutter gh:plotly/dash-component-boilerplate (https://github.com/plotly/dash-component-boilerplate/issues/108#issuecomment-1420626521)
+- Answer the questions based on 3. here: https://github.com/plotly/dash-component-boilerplate
+- Create a launch.json and tasks.json in .vscode folder
+- Extra: https://stackoverflow.com/questions/75454425/access-blocked-project-has-not-completed-the-google-verification-process
+
+Lets take a look at the boilerplate:
+
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import { GooglePicker as RealComponent } from '../LazyLoader';
+
+/**
+ * ExampleComponent is an example component.
+ * It takes a property, `label`, and
+ * displays it.
+ * It renders an input with the property `value`
+ * which is editable by the user.
+ */
+export default class GooglePicker extends Component {
+    render() {
+        return (
+            <React.Suspense fallback={null}>
+                <RealComponent {...this.props}/>
+            </React.Suspense>
+        );
+    }
+}
+
+GooglePicker.defaultProps = {};
+
+GooglePicker.propTypes = {
+    /**
+     * The ID used to identify this component in Dash callbacks.
+     */
+    id: PropTypes.string,
+
+    /**
+     * A label that will be printed when this component is rendered.
+     */
+    label: PropTypes.string.isRequired,
+
+    /**
+     * The value displayed in the input.
+     */
+    value: PropTypes.string,
+
+    /**
+     * Dash-assigned callback that should be called to report property changes
+     * to Dash, to make them available for callbacks.
+     */
+    setProps: PropTypes.func
+};
+
+
+export const defaultProps = GooglePicker.defaultProps;
+export const propTypes = GooglePicker.propTypes;
+
+
+Include js libs that have no npm package:
+    componentDidMount() {
+        this.loadScript('https://apis.google.com/js/api.js', this.onApiLoad);
+        this.loadScript('https://accounts.google.com/gsi/client', this.gisLoaded);
+    }
+
