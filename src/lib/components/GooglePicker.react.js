@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-export default class GooglePicker extends Component {
-    constructor(props) {
+export default class GooglePicker extends Component 
+{
+    constructor(props) 
+    {
         super(props);
-        this.state = {
+        this.state = 
+        {
             pickerInited: false,
             gisInited: false,
             accessToken: null,
@@ -19,7 +22,8 @@ export default class GooglePicker extends Component {
         this.loadGoogleGsiClient();
     }
 
-    loadGoogleApi() {
+    loadGoogleApi() 
+    {
         const script = document.createElement('script');
         script.src = 'https://apis.google.com/js/api.js';
         script.async = true;
@@ -33,7 +37,8 @@ export default class GooglePicker extends Component {
         window.gapi.load('picker', () => this.setState({ pickerInited: true }));
     }
 
-    loadGoogleGsiClient() {
+    loadGoogleGsiClient() 
+    {
         const script = document.createElement('script');
         script.src = 'https://accounts.google.com/gsi/client';
         script.async = true;
@@ -42,8 +47,10 @@ export default class GooglePicker extends Component {
         document.body.appendChild(script);
     }
 
-    gisLoaded() {
-        this.tokenClient = window.google.accounts.oauth2.initTokenClient({
+    gisLoaded() 
+    {
+        this.tokenClient = window.google.accounts.oauth2.initTokenClient(
+        {
             client_id: this.props.client_id,
             scope: this.props.scope,
             callback: '', // defined later
@@ -51,13 +58,16 @@ export default class GooglePicker extends Component {
         this.setState({ gisInited: true });
     }
 
-    createPicker() {
-        if(!this.state.pickerInited || !this.state.gisInited) {
+    createPicker() 
+    {
+        if(!this.state.pickerInited || !this.state.gisInited) 
+        {
             console.error('Picker or GSI client is not initialized yet');
             return;
         }
 
-        const showPicker = () => {
+        const showPicker = () => 
+        {
             const pickerBuilder = new window.google.picker.PickerBuilder()
                 .setOAuthToken(this.state.accessToken)
                 .setDeveloperKey(this.props.developer_key)
@@ -66,24 +76,28 @@ export default class GooglePicker extends Component {
             // Assume that this.props.view_ids is an array of view id strings
             // If it is a single string, convert it into an array
             const viewIds = Array.isArray(this.props.view_ids) ? this.props.view_ids : [this.props.view_ids];
-            viewIds.forEach(viewId => {
+            viewIds.forEach(viewId => 
+            {
                 pickerBuilder.addView(window.google.picker[viewId] || window.google.picker.ViewId.DOCS);
             });
         
             // Enable features
             const enabledFeatures = Array.isArray(this.props.enabled_features) ? this.props.enabled_features : [this.props.enabled_features];
-            enabledFeatures.forEach(feature => {
+            enabledFeatures.forEach(feature => 
+            {
                 pickerBuilder.enableFeature(window.google.picker.Feature[feature]);
             });
 
             // Disable features
             const disabledFeatures = Array.isArray(this.props.disabled_features) ? this.props.disabled_features : [this.props.disabled_features];
-            disabledFeatures.forEach(feature => {
+            disabledFeatures.forEach(feature => 
+            {
                 pickerBuilder.disableFeature(window.google.picker.Feature[feature]);
             });
 
             // Set locale if provided
-            if (this.props.locale) {
+            if (this.props.locale) 
+            {
                 pickerBuilder.setLocale(this.props.locale);
             }
 
@@ -93,51 +107,63 @@ export default class GooglePicker extends Component {
         
 
         // Request an access token.
-        this.tokenClient.callback = async (response) => {
-            if (response.error !== undefined) {
+        this.tokenClient.callback = async (response) => 
+        {
+            if (response.error !== undefined) 
+            {
                 throw (response);
             }
             this.setState({ accessToken: response.access_token });
             showPicker();
         };
 
-        if (this.state.accessToken === null) {
+        if (this.state.accessToken === null) 
+        {
             // Prompt the user to select a Google Account and ask for consent to share their data
             // when establishing a new session.
             this.tokenClient.requestAccessToken({prompt: 'consent'});
-        } else {
+        } 
+        else 
+        {
             // Skip display of account chooser and consent dialog for an existing session.
             this.tokenClient.requestAccessToken({prompt: ''});
         }
     }
 
-    componentDidUpdate(prevProps) {
-        if(this.props.open !== prevProps.open) {
-            this.setState({ open: this.props.open }, () => {
-                if (this.state.open) {
-                    this.createPicker();
-                }
+    componentDidUpdate(prevProps) 
+    {
+        if(this.props.open !== prevProps.open) 
+        {
+            this.setState({ open: this.props.open }, () => 
+            {
+                this.createPicker();
             });
         }
     }
 
-    pickerCallback(data) {
+    pickerCallback(data) 
+    {
         let action = data[window.google.picker.Response.ACTION];
         let documents = {};
     
-        if (action === window.google.picker.Action.PICKED) {
+        if (action === window.google.picker.Action.PICKED) 
+        {
             let docsArray = data[window.google.picker.Response.DOCUMENTS];
             documents = Object.assign({}, docsArray);
         }
     
-        if (this.props.setProps) {
+        if (this.props.setProps) 
+        {
             this.props.setProps({ action: action, documents: documents });
-        } else {
+        } 
+        else 
+        {
             this.setState({ action: action, documents: documents });
         }
     }    
 
-    render() {
+    render() 
+    {
         return (
             <React.Suspense fallback={null}>
                 
@@ -146,7 +172,8 @@ export default class GooglePicker extends Component {
     }
 }
 
-GooglePicker.defaultProps = {
+GooglePicker.defaultProps = 
+{
     open: false,
     selected_data: {},
     view_ids: ['all'],
@@ -158,7 +185,8 @@ GooglePicker.defaultProps = {
     documents: {}
 };
 
-GooglePicker.propTypes = {
+GooglePicker.propTypes = 
+{
     id: PropTypes.string,
     label: PropTypes.string.isRequired,
     value: PropTypes.string,
