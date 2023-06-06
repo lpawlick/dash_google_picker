@@ -143,13 +143,13 @@ export default class GooglePicker extends Component
 
     pickerCallback(data) 
     {
+        console.log(data);
         let action = data[window.google.picker.Response.ACTION];
-        let documents = {};
-    
+        let documents = null;
+
         if (action === window.google.picker.Action.PICKED) 
         {
-            let docsArray = data[window.google.picker.Response.DOCUMENTS];
-            documents = Object.assign({}, docsArray);
+            documents = data[window.google.picker.Response.DOCUMENTS];
         }
     
         if (this.props.setProps) 
@@ -182,7 +182,7 @@ GooglePicker.defaultProps =
     disabled_features: [],
     locale: null,
     action: '',
-    documents: {}
+    documents: null
 };
 
 GooglePicker.propTypes = 
@@ -210,7 +210,7 @@ GooglePicker.propTypes =
     ]),
     locale: PropTypes.string,
     action: PropTypes.string,
-    documents: PropTypes.object
+    documents: PropTypes.arrayOf(PropTypes.object)
 };
 
 export const defaultProps = GooglePicker.defaultProps;
