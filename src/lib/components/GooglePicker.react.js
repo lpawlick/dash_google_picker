@@ -9,8 +9,6 @@ import PropTypes from 'prop-types';
  *
  * Props:
  * @prop {string} id - A unique identifier for the component.
- * @prop {string} label - A required label for the component.
- * @prop {string} value - A string value related to the component.
  * @prop {function} setProps - Function to update component's props.
  * @prop {bool} open - Determines if the picker is opened or not.
  * @prop {object} selected_data - The currently selected data.
@@ -247,25 +245,25 @@ export default class GooglePicker extends Component
    * It updates the component state or props (if `setProps` is defined) based on the selected files/folders.
    * @param {Object} data - The response data from Google Picker after user selection.
    */
-    pickerCallback(data) 
-    {
-        let action = data[window.google.picker.Response.ACTION];
-        let documents = null;
+pickerCallback(data) 
+{
+    let action = data[window.google.picker.Response.ACTION];
+    let documents = null;
 
-        if (action === window.google.picker.Action.PICKED) 
-        {
-            documents = data[window.google.picker.Response.DOCUMENTS];
-        }
-    
-        if (this.props.setProps) 
-        {
-            this.props.setProps({ action: action, documents: documents });
-        } 
-        else 
-        {
-            this.setState({ action: action, documents: documents });
-        }
-    }    
+    if (action === window.google.picker.Action.PICKED) 
+    {
+        documents = data[window.google.picker.Response.DOCUMENTS];
+    }
+
+    if (this.props.setProps) 
+    {
+        this.props.setProps({ action: action, ...(documents && {documents: documents}) });
+    } 
+    else 
+    {
+        this.setState({ action: action, ...(documents && {documents: documents}) });
+    }
+}
 
   /**
    * A lifecycle method that defines the render output of the component.
@@ -279,7 +277,6 @@ export default class GooglePicker extends Component
         );
     }
 }
-
 
 /**
  * Default properties for the GooglePicker component.
@@ -303,9 +300,7 @@ GooglePicker.defaultProps =
  */
 GooglePicker.propTypes = 
 {
-    id: PropTypes.string,
-    label: PropTypes.string.isRequired,
-    value: PropTypes.string,
+    id: PropTypes.string.isRequired,
     setProps: PropTypes.func,
     open: PropTypes.bool,
     selected_data: PropTypes.object,
