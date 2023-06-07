@@ -15,36 +15,46 @@ export default class GooglePicker extends Component
         }
         this.pickerCallback = this.pickerCallback.bind(this);
     }
-
-    componentDidMount() 
+    async componentDidMount() 
     {
-        this.loadGoogleApi();
-        this.loadGoogleGsiClient();
+        try 
+        {
+            await Promise.all([this.loadGoogleApi(), this.loadGoogleGsiClient()]);
+        } 
+        catch (error)
+        {
+            console.error(error);
+        }
     }
+    
 
-    loadGoogleApi() 
-    {
-        const script = document.createElement('script');
-        script.src = 'https://apis.google.com/js/api.js';
-        script.async = true;
-        script.defer = true;
-        script.onload = () => this.onApiLoad();
-        document.body.appendChild(script);
+    loadGoogleApi() {
+        return new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = 'https://apis.google.com/js/api.js';
+            script.async = true;
+            script.defer = true;
+            script.onload = () => resolve(this.onApiLoad());
+            script.onerror = () => reject(new Error('Failed to load Google API script'));
+            document.body.appendChild(script);
+        });
+    }
+    
+    loadGoogleGsiClient() {
+        return new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = 'https://accounts.google.com/gsi/client';
+            script.async = true;
+            script.defer = true;
+            script.onload = () => resolve(this.gisLoaded());
+            script.onerror = () => reject(new Error('Failed to load Google GSI Client script'));
+            document.body.appendChild(script);
+        });
     }
 
     onApiLoad() 
     {
         window.gapi.load('picker', () => this.setState({ pickerInited: true }));
-    }
-
-    loadGoogleGsiClient() 
-    {
-        const script = document.createElement('script');
-        script.src = 'https://accounts.google.com/gsi/client';
-        script.async = true;
-        script.defer = true;
-        script.onload = () => this.gisLoaded();
-        document.body.appendChild(script);
     }
 
     gisLoaded() 
@@ -60,12 +70,6 @@ export default class GooglePicker extends Component
 
     createPicker() 
     {
-        if(!this.state.pickerInited || !this.state.gisInited) 
-        {
-            console.error('Picker or GSI client is not initialized yet');
-            return;
-        }
-
         const showPicker = () => 
         {
             const pickerBuilder = new window.google.picker.PickerBuilder()
@@ -143,7 +147,6 @@ export default class GooglePicker extends Component
 
     pickerCallback(data) 
     {
-        console.log(data);
         let action = data[window.google.picker.Response.ACTION];
         let documents = null;
 
