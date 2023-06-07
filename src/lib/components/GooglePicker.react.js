@@ -12,6 +12,7 @@ export default class GooglePicker extends Component
             gisInited: false,
             accessToken: null,
             open: props.open,
+            pendingPicker: false,
         }
         this.pickerCallback = this.pickerCallback.bind(this);
     }
@@ -20,6 +21,10 @@ export default class GooglePicker extends Component
         try 
         {
             await Promise.all([this.loadGoogleApi(), this.loadGoogleGsiClient()]);
+            if (this.state.pendingPicker) 
+            {
+                this.createPicker();
+            }
         } 
         catch (error)
         {
@@ -28,8 +33,10 @@ export default class GooglePicker extends Component
     }
     
 
-    loadGoogleApi() {
-        return new Promise((resolve, reject) => {
+    loadGoogleApi() 
+    {
+        return new Promise((resolve, reject) => 
+        {
             const script = document.createElement('script');
             script.src = 'https://apis.google.com/js/api.js';
             script.async = true;
@@ -40,8 +47,10 @@ export default class GooglePicker extends Component
         });
     }
     
-    loadGoogleGsiClient() {
-        return new Promise((resolve, reject) => {
+    loadGoogleGsiClient() 
+    {
+        return new Promise((resolve, reject) => 
+        {
             const script = document.createElement('script');
             script.src = 'https://accounts.google.com/gsi/client';
             script.async = true;
@@ -70,6 +79,12 @@ export default class GooglePicker extends Component
 
     createPicker() 
     {
+        if(!this.state.pickerInited || !this.state.gisInited) 
+        {
+            this.setState({ shouldShowPicker: true });
+            return;
+        }
+
         const showPicker = () => 
         {
             const pickerBuilder = new window.google.picker.PickerBuilder()
