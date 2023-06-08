@@ -46,8 +46,6 @@ if __name__ == '__main__':
 
 The picker view can be customised, for more information see the `GooglePicker` component documentation or the [Google Picker API Documentation](https://developers.google.com/picker/docs/reference).
 
-```python
-
 ## Callbacks
 
 The `GooglePicker` component generates two outputs `documents` and `action`. The `documents` output contains a list of documents selected by the user, and `action` contains the current action status.
