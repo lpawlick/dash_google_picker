@@ -4,52 +4,46 @@ from dataclasses import dataclass
 @dataclass
 class GoogleDocument:
     """
-    A class to represent a Google Document.
+    A dataclass representing a Google Document. 
 
-    Attributes
-    ----------
-    id : str
-        The ID of the document.
-    serviceId : str
-        The service ID of the document.
-    mimeType : str
-        The MIME type of the document.
-    name : str
-        The name of the document.
-    description : str
-        A description of the document.
-    type : str
-        The type of the document.
-    lastEditedUtc : int
-        The last edit time of the document in UTC.
-    iconUrl : str
-        The URL of the document's icon.
-    url : str
-        The URL of the document.
-    embedUrl : str
-        The URL to embed the document.
-    sizeBytes : int
-        The size of the document in bytes.
-    isShared : bool
-        A boolean indicating whether the document is shared.
+    The class takes a dictionary as an argument and sets the key-value pairs as attributes
+    on the object. The dictionary should represent the properties of a Google Document
+    as per the Google Picker API (https://developers.google.com/drive/picker/reference#document).
+
+    Attributes are dynamically set based on the key-value pairs in the dictionary provided.
     """
-    id: str 
-    serviceId: str
-    mimeType: str
-    name: str
-    description: str
-    type: str
-    lastEditedUtc: int
-    iconUrl: str
-    url: str
-    embedUrl: str
-    sizeBytes: int
-    isShared: bool
+
+    def __init__(self, dict_data: Dict[str, Union[str, int, bool]]):
+        """
+        Initialize a GoogleDocument object with a dictionary.
+
+        :param dict_data: A dictionary where the keys represent attribute names and the values
+                          represent attribute values. Should represent a Google Document as 
+                          per the Google Picker API.
+        """
+        for key, value in dict_data.items():
+            setattr(self, key, value)
 
 class GoogleDocuments:
-    def __new__(cls, documents_data : Union[str, List[Dict[str, Union[str, int, bool]]]]):
+    """
+    A class to represent a list of GoogleDocument objects.
+
+    The class takes a list of dictionaries as an argument and creates a GoogleDocument object
+    for each dictionary in the list.
+
+    Usage:
+    documents = GoogleDocuments([{'id': '1', 'title': 'Title', 'url': 'http://...'}, {...}, ...])
+    """
+
+    def __new__(cls, documents_data: List[Dict[str, Union[str, int, bool]]]) -> List[GoogleDocument]:
+        """
+        Create a list of GoogleDocument objects from a list of dictionaries.
+
+        :param documents_data: A list of dictionaries where each dictionary should represent
+                               the properties of a Google Document as per the Google Picker API.
+        :return: A list of GoogleDocument objects.
+        """
         if documents_data is None:
             return []
         else:
-            return [GoogleDocument(**doc) for doc in documents_data]
-
+            return [GoogleDocument(doc) for doc in documents_data]
