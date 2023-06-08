@@ -1,5 +1,13 @@
 from enum import Enum
+
 class ViewId(Enum):
+    """
+    Enum for representing Google Picker View IDs.
+
+    Each attribute represents a different view that can be used in the Google Picker. 
+    For more information about what these views mean, check the Google Picker API documentation:
+    https://developers.google.com/drive/picker/reference?#view-id
+    """
     DOCS = "all"
     DOCS_IMAGES = "docs-images"
     DOCS_IMAGES_AND_VIDEOS = "docs-images-and-videos"
@@ -22,6 +30,13 @@ class ViewId(Enum):
     YOUTUBE = "youtube"
 
 class Feature(Enum):
+    """
+    Enum for representing Google Picker Features.
+
+    Each attribute represents a different feature that can be used in the Google Picker. 
+    For more information about what these features mean, check the Google Picker API documentation:
+    https://developers.google.com/drive/picker/reference?#feature
+    """
     Cba = "shadeDialog"
     E9 = "ftd"
     Hba = "simpleUploadEnabled"
