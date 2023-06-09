@@ -11,7 +11,6 @@ import PropTypes from 'prop-types';
  * @prop {string} id - A unique identifier for the component.
  * @prop {function} setProps - Function to update component's props.
  * @prop {bool} open - Determines if the picker is opened or not.
- * @prop {object} selected_data - The currently selected data.
  * @prop {(string|array)} view_ids - Google View IDs to be displayed in the picker.
  * @prop {string} client_id - The client_id of the Google Cloud application.
  * @prop {string} scope - The scopes for the Google Cloud application.
@@ -31,7 +30,6 @@ import PropTypes from 'prop-types';
  *
  * Default Props:
  * @default {bool} open - false
- * @default {object} selected_data - {}
  * @default {array} view_ids - ['all']
  * @default {string} scope - 'https://www.googleapis.com/auth/drive.readonly'
  * @default {array} enabled_features - []
@@ -284,7 +282,6 @@ pickerCallback(data)
 GooglePicker.defaultProps = 
 {
     open: false,
-    selected_data: {},
     view_ids: ['all'],
     scope: 'https://www.googleapis.com/auth/drive.readonly',
     enabled_features: [],
@@ -300,27 +297,73 @@ GooglePicker.defaultProps =
  */
 GooglePicker.propTypes = 
 {
+    /**
+     * A unique identifier for the component.
+     */
     id: PropTypes.string.isRequired,
+    
+    /**
+     * Function to update component's props.
+     */
     setProps: PropTypes.func,
+
+    /**
+     * Determines if the picker is opened or not.
+     */
     open: PropTypes.bool,
-    selected_data: PropTypes.object,
+
+    /**
+     * Google View IDs to be displayed in the picker.
+     */
     view_ids: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.arrayOf(PropTypes.string)
     ]),
+
+    /**
+     * The client_id of the Google Cloud application.
+     */
     client_id: PropTypes.string.isRequired,
+
+    /**
+     * The scopes for the Google Cloud application.
+     */
     scope: PropTypes.string,
+
+    /**
+     * The developer key of the Google Cloud application.
+     */
     developer_key: PropTypes.string.isRequired,
+
+    /**
+     * Features to enable in the picker.
+     */
     enabled_features: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.arrayOf(PropTypes.string)
     ]),
+
+    /**
+     * Features to disable in the picker.
+     */
     disabled_features: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.arrayOf(PropTypes.string)
     ]),
+
+    /**
+     * The locale to be used in the picker.
+     */
     locale: PropTypes.string,
+
+    /**
+     * The current action performed in the picker.
+     */
     action: PropTypes.string,
+
+    /**
+     * The documents selected from the picker.
+     */
     documents: PropTypes.arrayOf(PropTypes.object)
 };
 
