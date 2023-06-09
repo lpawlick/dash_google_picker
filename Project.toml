@@ -1,8 +1,8 @@
 
 name = "DashGooglePicker"
 uuid = "1b08a953-4be3-4667-9a23-8b4af5448d15"
-authors = ["Placeholder <placeholder@placeholder.com>"]
-version = "0.0.1"
+authors = ["lpawlick <>"]
+version = "1.0.0"
 
 [deps]
 Dash = "1b08a953-4be3-4667-9a23-3db579824955"

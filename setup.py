@@ -16,7 +16,10 @@ setup(
     include_package_data=True,
     license=package['license'],
     description=package.get('description', package_name),
-    install_requires=[],
+    long_description=open('README.md').read(),
+    long_description_content_type='text/markdown',
+    url=package['homepage'],
+    install_requires=["dash"],
     classifiers = [
         'Framework :: Dash',
     ],    
