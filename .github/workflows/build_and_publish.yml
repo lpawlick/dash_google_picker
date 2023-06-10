@@ -1,0 +1,53 @@
+name: Build and Publish
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    permissions:
+        id-token: write
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20.3.0
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Python and dependencies
+        run: |
+          apt-get -y update
+          apt-get -y install python3 python3-pip python3-venv git
+          python3 -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install build twine
+
+      - name: Build the project
+        run: export NODE_OPTIONS=--openssl-legacy-provider && npm run build
+
+      - name: Package the project
+        run: python3 -m build --wheel
+
+      - name: Check the package
+        run: twine check dist/*
+
+      - name: Check if version has changed
+        id: version_check
+        run: |
+          changed_files=$(git diff --name-only HEAD~1..HEAD --)
+          if echo "$changed_files" | grep -q "package.json"; then
+            echo "::set-output name=has_changed::true"
+          else
+            echo "::set-output name=has_changed::false"
+          fi
+      
+      - name: Publish package distributions to PyPI
+        if: steps.version_check.outputs.has_changed == 'true'
+        uses: pypa/gh-action-pypi-publish@release/v1
