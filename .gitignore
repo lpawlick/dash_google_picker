@@ -279,4 +279,18 @@ GitHub.sublime-settings
 Manifest.toml
 JuliaManifest.toml
 
+# Environment Variables
 .env
+
+# Build artifacts
+src/jl/
+src/*.jl
+dash_google_picker/*.js
+dash_google_picker/*.js.map
+dash_google_picker/*.txt
+dash_google_picker/GooglePicker.py
+dash_google_picker/metadata.json
+man/
+R/
+deps/
+inst/
