@@ -1,4 +1,5 @@
-# dash_google_picker
+# Dash Google Picker
+[![PyPI version](https://badge.fury.io/py/dash-google-picker.svg)](https://badge.fury.io/py/dash-google-picker)
 
 The `dash_google_picker` is a Python module that allows the integration of Google's Picker API with a Dash application. The module provides a Dash component `GooglePicker` to easily implement the Google Picker functionality into your application, enabling your users to select files from their Google Drive account, among other data sources.
 
@@ -13,8 +14,12 @@ The `dash_google_picker` is a Python module that allows the integration of Googl
 Use pip to install the package:
 
 ```bash
-pip install git+https://github.com/lpawlick/dash_google_picker
+pip install dash-google-picker
 ```
+
+## Prerequisites
+
+Follow the official [Google Picker Guide](https://developers.google.com/drive/picker/guides/overview) to create the required credentials.
 
 ## Usage
 
@@ -85,10 +90,6 @@ def display_action(action):
         return "Cancelled the Google Picker Popup"
     return f'Action: {action}'
 ```
-
-## Prerequisites
-
-You will need to set up your OAuth 2.0 credentials for your project. Follow the guide at [Google Cloud Platform Console Help](https://support.google.com/cloud/answer/6158849?hl=en).
 
 ## License
 
