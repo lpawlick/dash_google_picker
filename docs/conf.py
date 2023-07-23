@@ -23,7 +23,7 @@ author = 'lpawlick'
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = ["sphinx_js", "sphinx.ext.autodoc"]
-
+autodoc_typehints = "both"
 exclude_patterns = []
 
 # -- Options for HTML output -------------------------------------------------
