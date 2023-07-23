@@ -14,21 +14,17 @@ class GoogleDocument:
         This class is not intended to be manually instantiated. Instances of this class are
         created by the :class:`~GoogleDocuments` class.
 
-    :ivar attributes: A dictionary representing the attributes of the Google Document.
-
     Attributes are dynamically set based on the key-value pairs in the dictionary provided.
-    """
 
-    __module__ = "dash_google_picker.GoogleDocument"
-
-    def __init__(self, dict_data: Dict[str, Union[str, int, bool]]):
-        """
-        Initialize a GoogleDocument object with a dictionary.
-
-        :param dict_data: A dictionary where the keys represent attribute names and the values
+    :param dict_data: A dictionary where the keys represent attribute names and the values
                             represent attribute values. Should represent a Google Document as 
                             per the Google Picker API.
-        """
+    :return: An instance of the GoogleDocument class representing the Google Document.
+    :rtype: GoogleDocument
+    """
+    def __init__(self, dict_data: Dict[str, Union[str, int, bool]]):
+        for key, value in dict_data.items():
+            setattr(self, key, value)
 
 class GoogleDocuments:
     """
@@ -39,20 +35,24 @@ class GoogleDocuments:
 
     Usage:
     ::
+        @app.callback(
+            [Input('google-picker', 'documents')],
+            prevent_initial_call=True
+        )
+        def display_output(documents):
+            docs : List[GoogleDocument] = GoogleDocuments(documents)
 
-        documents = GoogleDocuments([{'id': '1', 'title': 'Title', 'url': 'http://...'}, {...}, ...])
-
-    :ivar documents: A list of :class:`~GoogleDocument` objects.
+    :param documents_data: A list of dictionaries where each dictionary should represent
+                                the properties of a Google Document as per the Google Picker API.
+    :return: A list of :class:`~GoogleDocument` objects.
+    :rtype: List[GoogleDocument]
 
     .. note::
         Only data from the Google Picker API returned by the :class:`~GooglePicker` should be passed into this class.
     """
 
     def __new__(cls, documents_data: List[Dict[str, Union[str, int, bool]]]) -> List['GoogleDocument']:
-        """
-        Create a list of GoogleDocument objects from a list of dictionaries.
-
-        :param documents_data: A list of dictionaries where each dictionary should represent
-                                the properties of a Google Document as per the Google Picker API.
-        :return: A list of :class:`~GoogleDocument` objects.
-        """
+        if documents_data is None:
+            return []
+        else:
+            return [GoogleDocument(doc) for doc in documents_data]
