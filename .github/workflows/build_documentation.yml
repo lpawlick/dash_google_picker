@@ -45,7 +45,7 @@ jobs:
             git config --global user.name 'github-actions[bot]'
             git config --global user.email 'github-actions[bot]@users.noreply.github.com'
             git clone https://${{ secrets.ACCESS_TOKEN }}@github.com/lpawlick/lpawlick.github.io.git
-            mkdir -p lpawlick.github.io/projects/sd-webui-model-notes/
+            mkdir -p lpawlick.github.io/projects/${{ steps.extract_repo.outputs.current_repo }}/
             cp -r ./_build/* lpawlick.github.io/projects/${{ steps.extract_repo.outputs.current_repo }}/
             cd lpawlick.github.io
             git add .
