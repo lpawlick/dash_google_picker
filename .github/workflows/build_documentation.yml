@@ -1,0 +1,57 @@
+name: Build and Publish Documentation
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          npm install -g jsdoc
+
+      - name: Install Python 3.11
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
+
+      - name: Install Python dependencies
+        run: |
+          pip install -r requirements.txt
+          cd docs
+          pip install -r requirements.txt
+
+      - name: Build the project
+        run: |
+          npm run build --openssl-legacy-provider
+
+      - name: Build Documentation
+        run: |
+          TZ=UTC sphinx-build -b html docs _build
+
+      - name: Extract Repository Information
+        id: extract_repo
+        run: |
+          echo "::set-output name=current_repo::$(basename $GITHUB_REPOSITORY)"
+
+      - name: Deploy to lpawlick.github.io
+        run: |
+            git config --global user.name 'github-actions[bot]'
+            git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+            git clone https://${{ secrets.ACCESS_TOKEN }}@github.com/lpawlick/lpawlick.github.io.git
+            mkdir -p lpawlick.github.io/projects/sd-webui-model-notes/
+            cp -r ./_build/* lpawlick.github.io/projects/${{ steps.extract_repo.outputs.current_repo }}/
+            cd lpawlick.github.io
+            git add .
+            COMMIT_MESSAGE="${{ github.event.head_commit.message }}"
+            if [ -z "$COMMIT_MESSAGE" ]; then
+              COMMIT_MESSAGE="Manual ${{ steps.extract_repo.outputs.current_repo }} Documentation Update"
+            fi
+            git commit -m "$COMMIT_MESSAGE"
+            git push https://${{ secrets.ACCESS_TOKEN }}@github.com/lpawlick/lpawlick.github.io.git
