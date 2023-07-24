@@ -9,6 +9,8 @@ The `dash_google_picker` is a Python module that allows the integration of Googl
 - Allows selection of multiple files from Google Drive.
 - Customizable views and features according to Google Picker API.
 
+## [Documentation](https://docs.pawlick.dev/projects/dash_google_picker/)
+
 ## Installation
 
 Use pip to install the package:

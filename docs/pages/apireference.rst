@@ -20,24 +20,29 @@ Usage:
 Parameters
 -----------
 
-id : str
-    A unique identifier for the component
-open : bool
-    If the picker should be opened immediately, defaults to `False`
-view_ids : List[str]
-    The views that should be shown, essentially a filter. All possible values can be found in :class:`~ViewId`
-client_id : str
-    The client ID for authenticating with the Google API.
-scope : str
-    The api scope for this application. Defaults to `https://www.googleapis.com/auth/drive.readonly`
-developer_key : str
-    The developer key for accessing the Google API.
-enabled_features : List[str]
-    The features that should be enabled in the picker, all values can be found in :class:`~Feature`. Defaults to `[]`
-disabled_features : List[str]
-    The features that should be disabled in the picker, all values can be found in :class:`~Feature`. Defaults to `[]`
-locale : str
-    The language of the google picker, all supported langauges can be found in the `Google Picker API Documentation <https://developers.google.com/drive/picker/guides/overview#i18n>`_
+.. py:class:: GooglePicker
+
+    :param id: A unique identifier for the component
+    :type id: str
+    :param open: If the picker should be opened immediately, defaults to `False`
+    :type open: bool
+    :param view_ids: What documents should be shown in the picker popup. All possible values can be found in :class:`~ViewId`. Defaults to ["all"]
+    :type view_ids: List[str]
+    :param client_id: The client ID for authenticating with the Google API.
+    :type client_id: str
+    :param scope: The api scope for this application, defaults to `https://www.googleapis.com/auth/drive.readonly`
+    :type scope: str
+    :param developer_key: The developer key for accessing the Google API.
+    :type developer_key: str
+    :param enabled_features: The features that should be enabled in the picker, all values can be found in :class:`~Feature`, defaults to `[]`
+    :type enabled_features: List[str]
+    :param disabled_features: The features that should be disabled in the picker, all values can be found in :class:`~Feature`, defaults to `[]`
+    :type enabled_features: List[str]
+    :param locale: The language of the google picker, all supported langauges can be found in the `Google Picker API Documentation <https://developers.google.com/drive/picker/guides/overview#i18n>`_, defaults to `None`.
+    :type locale: str
+
+.. note::
+    Due to how props work in dash, there might be other valid parameters but setting them might break this component.
 
 Documents
 ==========

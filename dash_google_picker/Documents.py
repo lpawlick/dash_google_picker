@@ -4,7 +4,7 @@ from dataclasses import dataclass
 @dataclass
 class GoogleDocument:
     """
-    A dataclass representing a Google Document.
+    A dataclass representing a file in the Google Picker.
 
     The class takes a dictionary as an argument and sets the key-value pairs as attributes
     on the object. The dictionary should represent the properties of a Google Document
@@ -20,7 +20,7 @@ class GoogleDocument:
                             represent attribute values. Should represent a Google Document as 
                             per the Google Picker API.
     :return: An instance of the GoogleDocument class representing the Google Document.
-    :rtype: GoogleDocument
+    :rtype: dict
     """
     def __init__(self, dict_data: Dict[str, Union[str, int, bool]]):
         for key, value in dict_data.items():
@@ -45,7 +45,7 @@ class GoogleDocuments:
     :param documents_data: A list of dictionaries where each dictionary should represent
                                 the properties of a Google Document as per the Google Picker API.
     :return: A list of :class:`~GoogleDocument` objects.
-    :rtype: List[GoogleDocument]
+    :rtype: List[dict]
 
     .. note::
         Only data from the Google Picker API returned by the :class:`~GooglePicker` should be passed into this class.

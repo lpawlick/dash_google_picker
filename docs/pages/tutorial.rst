@@ -44,7 +44,7 @@ All possible filter options can be found in the :class:`~ViewId` enum.
 
 Lastly additional features like multiselect can be enabled or disabled with `enabled_features` or `disabled_features`. 
 Some, if not all, appear to be experimental and subject to change. Additionally there appears to exist no documentation about them. 
-At the time of writing all Features can be fount in the enum :class:`~Feature` but any future features, which are not yet present in this enum, should be supported as well.
+At the time of writing all Features can be found in the enum :class:`~Feature` but any future features, which are not yet present in this enum, should be supported as well if just passed as a string.
 
 Opening and closing the Picker
 -------------------------------
@@ -83,10 +83,9 @@ Reacting to user action
             return "Cancelled the Google Picker Popup"
         return f'Action: {action}'
 
-The `action` attribute contains the current user action. If it is "loaded" then the user logged in with google and the google picker just opened.
-If it is "picked" then the user selected a document and hit confirm, it is recommended to use the `documents` (see below) attribute instead of checking for this action.
+The `action` attribute contains the current user action. If it is "loaded" then the user logged in with google and the google picker popup just opened.
+If it is "picked" then the user selected a document and hit confirm, it is recommended to use the `documents` (see below) attribute instead if code should be run when documents were selected.
 Lastly if the "action" is "cancelled" then the user logged in with google but closed the google picker without picking any documents.
-
 
 Interacting with picked files
 ------------------------------
@@ -106,4 +105,4 @@ Interacting with picked files
 The `document` attribute contains the raw data (or `None`) when documents were selected. 
 This raw data can be converted to a list of :class:`~GoogleDocument` with the help of :class:`~GoogleDocuments`.
 A :class:`~GoogleDocument` is essentially just a dictionary, however certain keys might only be present with certain file types. 
-All keys can be found `here <https://developers.google.com/drive/picker/reference#document>`_
+All keys can be found `here <https://developers.google.com/drive/picker/reference#document>`_.

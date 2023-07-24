@@ -2,21 +2,21 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 /**
- * GooglePicker Component
+ * Dash Google Picker
  *
- * This component provides a Google file picker for the application
- * The picker provides access to files stored in Google Drive
+ * This component provides a Google file picker for react.
+ * Build for dash.
  *
  * Props:
  * @prop {string} id - A unique identifier for the component
- * @prop {bool} open - Determines if the picker is opened or not
- * @prop {(string|array)} view_ids - Google View IDs to be displayed in the picker
+ * @prop {bool} open - Determines if the picker is open
+ * @prop {(string|array)} view_ids - What filetypes are filtered for
  * @prop {string} client_id - The client_id of the Google Cloud application
- * @prop {string} scope - The scopes for the Google Cloud application
+ * @prop {string} scope - The scope for the Google Cloud application
  * @prop {string} developer_key - The developer key of the Google Cloud application
  * @prop {(string|array)} enabled_features - Features to enable in the picker
  * @prop {(string|array)} disabled_features - Features to disable in the picker
- * @prop {string} locale - The locale to be used in the picker
+ * @prop {string} locale - The locale/language to be used by the picker
  *
  * State:
  * @state {bool} pickerInited - Indicates if the Google Picker API has been loaded
@@ -44,7 +44,7 @@ import PropTypes from 'prop-types';
 class GooglePicker extends Component 
 {
     /**
-   * The constructor method is a special method for creating and initializing objects created with a class
+   * Creates the React/Dash component.
    * @param {Object} props - A collection of properties passed to the component
    */
     constructor(props) 
@@ -101,8 +101,8 @@ class GooglePicker extends Component
     }
     
     /**
-   * This function is used to dynamically load Google One Tap script into the HTML body
-   * @returns {Promise} Promise object represents the eventual completion or failure of loading Google One Tap script
+   * This function is used to dynamically load Google gsi client script into the HTML body
+   * @returns {Promise} Promise object represents the eventual completion or failure of loading Google gsi client
    */
     loadGoogleGsiClient() 
     {
@@ -119,7 +119,7 @@ class GooglePicker extends Component
     }
 
     /**
-   * This function is called after Google API script is loaded successfully. It initializes the Google Picker
+   * This function is called after Google API script is loaded successfully
    */
     onApiLoad() 
     {
@@ -127,7 +127,7 @@ class GooglePicker extends Component
     }
 
     /**
-   * This function is called after Google One Tap script is loaded successfully. It initializes Google One Tap client
+   * This function is called after Google One Tap script is loaded successfully
    */
     gisLoaded() 
     {
@@ -218,7 +218,7 @@ class GooglePicker extends Component
 
     /**
    * A lifecycle method that gets called when a component's props have been changed
-   * This method is used to update the component state and create Google Picker if the `open` prop is changed
+   * This method is used to update the component state and create Google Picker Popup if the `open` prop is changed
    * @param {Object} prevProps - A collection of properties of the component before update
    */
     componentDidUpdate(prevProps) 
