@@ -294,3 +294,5 @@ man/
 R/
 deps/
 inst/
+
+_build/

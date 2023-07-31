@@ -22,9 +22,15 @@ author = 'lpawlick'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ["sphinx_js", "sphinx.ext.autodoc"]
+extensions = ["sphinx_js", "sphinx.ext.autodoc", "sphinx.ext.intersphinx"]
 autodoc_typehints = "both"
 exclude_patterns = []
+
+# Configuration for intersphinx
+intersphinx_mapping = {
+    'python': ('https://docs.python.org/3.11', None),
+}
+
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
