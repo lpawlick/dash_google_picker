@@ -164,7 +164,7 @@ class GooglePicker extends Component
             const viewIds = Array.isArray(this.props.view_ids) ? this.props.view_ids : [this.props.view_ids];
             viewIds.forEach(viewId => 
             {
-                pickerBuilder.addView(window.google.picker[viewId] || window.google.picker.ViewId.DOCS);
+                pickerBuilder.addView(viewId);
             });
         
             // Enable features
