@@ -1,6 +1,6 @@
 from enum import Enum
 
-class ViewId(Enum):
+class ViewId(str, Enum):
     """
     Enum for representing Google Picker View IDs.
 
@@ -89,7 +89,7 @@ class ViewId(Enum):
     WEBCAM = "webcam"
     YOUTUBE = "youtube"
 
-class Feature(Enum):
+class Feature(str, Enum):
     """
     Enum for representing Google Picker Features.
 
