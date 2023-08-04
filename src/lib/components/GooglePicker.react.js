@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
  * Props:
  * @prop {string} id - A unique identifier for the component
  * @prop {bool} open - Determines if the picker is open
- * @prop {(string|array)} view_ids - What filetypes are filtered for
+ * @prop {(string|array)} view_ids - What views should be shown in the picker. Deprecated views will return a 403 error and invalid views will return a 500 error.
  * @prop {string} client_id - The client_id of the Google Cloud application
  * @prop {string} scope - The scope for the Google Cloud application
  * @prop {string} developer_key - The developer key of the Google Cloud application

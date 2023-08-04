@@ -26,7 +26,7 @@ Parameters
     :type id: str
     :param open: If the picker should be opened immediately, defaults to `False`
     :type open: bool
-    :param view_ids: What documents should be shown in the picker popup. All possible values can be found in :class:`~ViewId`. Defaults to ["all"]
+    :param view_ids: What view should be shown in the google picker. All possible values can be found in :class:`~ViewId`. Defaults to ["all"]
     :type view_ids: List[str]
     :param client_id: The client ID for authenticating with the Google API.
     :type client_id: str

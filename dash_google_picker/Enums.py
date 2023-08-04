@@ -2,92 +2,111 @@ from enum import Enum
 
 class ViewId(str, Enum):
     """
-    Enum for representing Google Picker View IDs.
+    Enum for all Google Picker Views.
 
-    Each attribute represents a different view that can be used in the Google Picker. 
-
-    :class:`ViewId.DOCS` : str
-        Represents the view for all types of documents.
-
-    :class:`ViewId.DOCS_IMAGES` : str
-        Represents the view for documents and images.
-
-    :class:`ViewId.DOCS_IMAGES_AND_VIDEOS` : str
-        Represents the view for documents, images, and videos.
-
-    :class:`ViewId.DOCS_VIDEOS` : str
-        Represents the view for documents and videos.
-
-    :class:`ViewId.DOCUMENTS` : str
-        Represents the view for Google documents.
-
-    :class:`ViewId.DRAWINGS` : str
-        Represents the view for Google drawings.
-
-    :class:`ViewId.FOLDERS` : str
-        Represents the view for Google Drive folders.
-
-    :class:`ViewId.FORMS` : str
-        Represents the view for Google forms.
-
-    :class:`ViewId.IMAGE_SEARCH` : str
-        Represents the view for image search.
-
-    :class:`ViewId.MAPS` : str
-        Represents the view for Google My Maps.
-
-    :class:`ViewId.PDFS` : str
-        Represents the view for PDF documents.
-
-    :class:`ViewId.PHOTOS` : str
-        Represents the view for Google Photos.
-
-    :class:`ViewId.PHOTO_ALBUMS` : str
-        Represents the view for Google Photo albums.
-
-    :class:`ViewId.PHOTO_UPLOAD` : str
-        Represents the view for uploading photos.
-
-    :class:`ViewId.PRESENTATIONS` : str
-        Represents the view for Google presentations.
-
-    :class:`ViewId.RECENTLY_PICKED` : str
-        Represents the view for recently picked items.
-
-    :class:`ViewId.SPREADSHEETS` : str
-        Represents the view for Google spreadsheets.
-
-    :class:`ViewId.VIDEO_SEARCH` : str
-        Represents the view for video search.
-
-    :class:`ViewId.WEBCAM` : str
-        Represents the view for the webcam.
-
-    :class:`ViewId.YOUTUBE` : str
-        Represents the view for YouTube videos.
-
-    For more information about what these views mean, check the `Google Picker API documentation <https://developers.google.com/drive/picker/reference?#view-id>`_.
+    Each attribute represents a different view that can be used in the Google Picker. Some views are deprecated and will return a 403 error.
+    More information about these views can be found in the `Google Picker API documentation <https://developers.google.com/drive/picker/reference?#view-id>`_.
     """
+
     DOCS = "all"
+    """
+    Shows all Elements from the Google drive. This is the default view.
+    """
+
     DOCS_IMAGES = "docs-images"
+    """
+    Shows only Images from the Google drive.
+    """
+
     DOCS_IMAGES_AND_VIDEOS = "docs-images-and-videos"
+    """
+    Shows only images and videos from the Google drive.
+    """
+
     DOCS_VIDEOS = "docs-videos"
+    """
+    Shows only videos from the Google drive.
+    """
+
     DOCUMENTS = "documents"
+    """
+    Shows only Google documents from the Google drive.
+    """
+
     DRAWINGS = "drawings"
+    """
+    Shows only Google Drive Drawings.
+    """
+
     FOLDERS = "folders"
+    """
+    Shows only Folders from the Google drive. Making this the only view will make it impossible to select a file.
+    """
+
     FORMS = "forms"
+    """
+    Shows only Google Forms from the Google drive.
+    """
+
     IMAGE_SEARCH = "image-search"
+    """
+    This view is deprecated and will return a 403 error.
+    """
+
     MAPS = "maps"
+    """
+    This view is deprecated and will return a 403 error.
+    """
+
     PDFS = "pdfs"
+    """
+    Shows only PDFs from the Google drive.
+    """
+
     PHOTOS = "photos"
+    """
+    This view is deprecated and will return a 403 error.
+    """
+
     PHOTO_ALBUMS = "photo-albums"
+    """
+    This view is deprecated and will return a 403 error.
+    """
+
     PHOTO_UPLOAD = "photo-upload"
+    """
+    This view is deprecated and will return a 403 error.
+    """
+
     PRESENTATIONS = "presentations"
+    """
+    Shows only Google slides from the Google drive.
+    """
+
     RECENTLY_PICKED = "recently-picked"
+    """
+    Shows only recently picked files from the Google drive. If no files have been picked yet, this view will be empty.
+    """
+
     SPREADSHEETS = "spreadsheets"
+    """
+    Shows only Google Sheets from the Google drive.
+    """
+
     VIDEO_SEARCH = "video-search"
+    """
+    This view is deprecated and will return a 403 error.
+    """
+
     WEBCAM = "webcam"
+    """
+    This view is deprecated and will return a 403 error.
+    """
+
     YOUTUBE = "youtube"
+    """
+    This view is deprecated and will return a 403 error.
+    """
 
 class Feature(str, Enum):
     """
