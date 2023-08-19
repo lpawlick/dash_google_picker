@@ -171,14 +171,14 @@ class GooglePicker extends Component
             const enabledFeatures = Array.isArray(this.props.enabled_features) ? this.props.enabled_features : [this.props.enabled_features];
             enabledFeatures.forEach(feature => 
             {
-                pickerBuilder.enableFeature(window.google.picker.Feature[feature]);
+                pickerBuilder.enableFeature(feature);
             });
 
             // Disable features
             const disabledFeatures = Array.isArray(this.props.disabled_features) ? this.props.disabled_features : [this.props.disabled_features];
             disabledFeatures.forEach(feature => 
             {
-                pickerBuilder.disableFeature(window.google.picker.Feature[feature]);
+                pickerBuilder.disableFeature(feature);
             });
 
             // Set locale if provided
