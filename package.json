@@ -1,6 +1,6 @@
 {
   "name": "dash_google_picker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Google picker component for dash",
   "repository": {
     "type": "git",

@@ -17,3 +17,4 @@ The integration is straightforward with extensive documentation and examples whi
    pages/installation
    pages/tutorial
    pages/apireference
+   pages/changelog
