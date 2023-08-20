@@ -39,11 +39,27 @@ jobs:
       - name: Check the package
         run: twine check dist/*
 
-      - name: Check if version has changed
+      - name: Get the current PyPI package version
+        id: get_pypi_version
+        run: |
+          pypi_version=$(curl -s https://pypi.org/pypi/dash_google_picker/json | jq -r .info.version)
+          echo "Current PyPI version: $pypi_version"
+          echo "::set-output name=pypi_version::$pypi_version"
+
+      - name: Get current package version from package.json
+        id: get_package_version
+        run: |
+          package_version=$(cat package.json | jq -r .version)
+          echo "Current package version: $package_version"
+          echo "::set-output name=package_version::$package_version"
+      
+      - name: Compare versions and check if version has changed
         id: version_check
         run: |
-          changed_files=$(git diff --name-only HEAD~1..HEAD --)
-          if echo "$changed_files" | grep -q "package.json"; then
+          current_version=${{ steps.get_package_version.outputs.package_version }}
+          pypi_version=${{ steps.get_pypi_version.outputs.pypi_version }}
+          echo "Comparing versions: Current=$current_version, PyPI=$pypi_version"
+          if [[ "$current_version" != "$pypi_version" ]]; then
             echo "::set-output name=has_changed::true"
           else
             echo "::set-output name=has_changed::false"
