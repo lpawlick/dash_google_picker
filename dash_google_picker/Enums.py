@@ -110,125 +110,154 @@ class ViewId(str, Enum):
 
 class Feature(str, Enum):
     """
-    Enum for representing Google Picker Features.
+    Enum for all Google Picker Features.
 
-    Each attribute represents a different feature that can be used in the Google Picker. 
-
-    :class:`Feature.Cba` : str
-        Represents the "shadeDialog" feature.
-
-    :class:`Feature.E9` : str
-        Represents the "ftd" feature.
-
-    :class:`Feature.Hba` : str
-        Represents the "simpleUploadEnabled" feature.
-
-    :class:`Feature.I8` : str
-        Represents the "cropA11y" feature.
-
-    :class:`Feature.Jca` : str
-        Represents the "urlInputVisible" feature.
-
-    :class:`Feature.K9` : str
-        Represents the "formsEnabled" feature.
-
-    :class:`Feature.MINE_ONLY` : str
-        Represents the "mineOnly" feature.
-
-    :class:`Feature.MULTISELECT_ENABLED` : str
-        Represents the "multiselectEnabled" feature.
-
-    :class:`Feature.NAV_HIDDEN` : str
-        Represents the "navHidden" feature.
-
-    :class:`Feature.SIMPLE_UPLOAD_ENABLED` : str
-        Represents the "simpleUploadEnabled" feature.
-
-    :class:`Feature.SUPPORT_DRIVES` : str
-        Represents the "sdr" feature.
-
-    :class:`Feature.SUPPORT_TEAM_DRIVES` : str
-        Represents the "std" feature.
-
-    :class:`Feature.T_DOLLAR` : str
-        Represents the "mineOnly" feature.
-
-    :class:`Feature.U_DOLLAR` : str
-        Represents the "minimal" feature.
-
-    :class:`Feature.Uaa` : str
-        Represents the "profilePhoto" feature.
-
-    :class:`Feature.V_DOLLAR` : str
-        Represents the "minew" feature.
-
-    :class:`Feature.A_DOLLAR` : str
-        Represents the "horizNav" feature.
-
-    :class:`Feature.bca` : str
-        Represents the "sawffmi" feature.
-
-    :class:`Feature.daa` : str
-        Represents the "multiselectEnabled" feature.
-
-    :class:`Feature.G_DOLLAR` : str
-        Represents the "ignoreLimits" feature.
-
-    :class:`Feature.iaa` : str
-        Represents the "navHidden" feature.
-
-    :class:`Feature.kaa` : str
-        Represents the "newDriveView" feature.
-
-    :class:`Feature.laa` : str
-        Represents the "newHorizNav" feature.
-
-    :class:`Feature.m9` : str
-        Represents the "showAttach" feature.
-
-    :class:`Feature.maa` : str
-        Represents the "newPhotoGridView" feature.
-
-    :class:`Feature.n9` : str
-        Represents the "edbe" feature.
-
-    :class:`Feature.oca` : str
-        Represents the "sdr" feature.
-
-    :class:`Feature.qca` : str
-        Represents the "std" feature.
-
-    :class:`Feature.waa` : str
-        Represents the "odv" feature.
-
-    For more information about what these features mean, check the `Google Picker API documentation <https://developers.google.com/drive/picker/reference?#feature>`_.
+    Each attribute represents a features that can be enabled or disabled in the Google Picker. Some features appear to have no effect and others are deprecated and will return a 403 error. 
+    Disabling features appears to rarely have an effect.
+    More information about the officially supported features can be found in the `Google Picker API documentation <https://developers.google.com/drive/picker/reference?#feature>`_.
     """
+
     Cba = "shadeDialog"
+    """
+    Increases the size of the picker dialog to nearly the complete screen size.
+    """
+
     E9 = "ftd"
+    """
+    Appears to stop the first two "pages" from loading thumbnails, besides that it appears to have no effect.
+    """
+
     Hba = "simpleUploadEnabled"
+    """
+    Appears to have no effect.
+    """
+
     I8 = "cropA11y"
+    """
+    Appears to stop the first two "pages" from loading thumbnails, besides that it appears to have no effect.
+    """
+
     Jca = "urlInputVisible"
+    """
+    Adds a url input field to the Google Picker, enabling the user to select a file from an url.
+    """
+
     K9 = "formsEnabled"
+    """
+    Appears to stop the first two "pages" from loading thumbnails, besides that it appears to have no effect.
+    """
+
     MINE_ONLY = "mineOnly"
+    """
+    Shows only documents owned by the user when showing items from Google Drive, also appears to stop the first two "pages" from loading thumbnails.
+    """
+
     MULTISELECT_ENABLED = "multiselectEnabled"
+    """
+    Allows the user to select multiple files, also appears to stop the first two "pages" from loading thumbnails.
+    """
+
     NAV_HIDDEN = "navHidden"
+    """
+    Hides the drive filepath and the tabs for switching between views. If the navigation pane is hidden, users can only select from the first view chosen. It also appears to stop the first two "pages" from loading thumbnails.
+    """
+    
     SIMPLE_UPLOAD_ENABLED = "simpleUploadEnabled"
+    """
+    No effect, unsupported by this library.
+    """
+
     SUPPORT_DRIVES = "sdr"
+    """
+    Deprecated, appears to have no effect.
+    """
+
     SUPPORT_TEAM_DRIVES = "std"
+    """
+    Deprecated, appears to have no effect
+    """
+
     T_DOLLAR = "mineOnly"
+    """
+    Same effect as :py:attr:`~Feature.MINE_ONLY`: Shows only documents owned by the user when showing items from Google Drive, also appears to stop the first two "pages" from loading thumbnails.
+    """
+
     U_DOLLAR = "minimal"
+    """
+    This prevents the picker window from opening and throws an error in the console.
+    """
+
     Uaa = "profilePhoto"
+    """
+    Deprecated feature and will return a 403 error if enabled.
+    """
+
     V_DOLLAR = "minew"
+    """
+    Deprecated feature and will return a 403 error if enabled.
+    """
+
     A_DOLLAR = "horizNav"
+    """
+    Appears to stop the first two "pages" from loading thumbnails, besides that it appears to have no effect.
+    """
+
     bca = "sawffmi"
+    """
+    Appears to stop the first two "pages" from loading thumbnails, besides that it appears to have no effect.
+    """
+
     daa = "multiselectEnabled"
+    """
+    Same effect as :py:attr:`~Feature.MULTISELECT_ENABLED`: Allows the user to select multiple files, also appears to stop the first two "pages" from loading thumbnails.
+    """
+
     G_DOLLAR = "ignoreLimits"
+    """
+    Makes the picker window super small, making it impossible to select a file depending on the platform.
+    """
+
     iaa = "navHidden"
+    """
+    Same effect as :py:attr:`~Feature.NAV_HIDDEN`: Hides the drive filepath and the tabs for switching between views. If the navigation pane is hidden, users can only select from the first view chosen. It also appears to stop the first two "pages" from loading thumbnails.
+    """
+
     kaa = "newDriveView"
+    """
+    Appears to have new effect.
+    """
+
     laa = "newHorizNav"
+    """
+    Appears to have new effect.
+    """
+
     m9 = "showAttach"
+    """
+    Shows a switch between "Insert as Drive Link" and "Insert as Attachment" in the Google Picker. Appears to have no effect on the returned data.
+    """
+
     maa = "newPhotoGridView"
+    """
+    Appears to have no effect.
+    """
+
     n9 = "edbe"
+    """
+    Appears to have no effect.
+    """
+
     oca = "sdr"
+    """
+    Appears to have no effect.
+    """
+
     qca = "std"
+    """
+    Appears to stop the first two "pages" from loading thumbnails, besides that it appears to have no effect.
+    """
+    
     waa = "odv"
+    """
+    Changes the picker window to a more old school design with non-uniform thumbnails, thicker borders and moving the tabs from the top to the left side.
+    """
