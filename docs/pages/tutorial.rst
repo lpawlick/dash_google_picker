@@ -39,8 +39,8 @@ Creating a the Google Picker
 
 Create the google picker like every other dash component. 
 The only required arguments are the unique `id`, the `client_id` and the `developer_key` which are both obtained from the google cloud console.
-`view_ids` is optional but can be used to filter what document types should be show. 
-All possible filter options can be found in the :class:`~ViewId` enum.
+`view_ids` is optional but can be used to filter what document types should be show. Alternatively :class:`~ViewGroup` can be used to group several filters together into a separate tab.
+All possible view options can be found in the :class:`~ViewId` enum.
 
 Lastly additional features like multiselect can be enabled or disabled with `enabled_features` or `disabled_features`. 
 Some, if not all, appear to be experimental and subject to change. Additionally there appears to exist no documentation about them. 

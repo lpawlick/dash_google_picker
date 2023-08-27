@@ -55,6 +55,14 @@ Representation of the documents selected by the Google Picker
 .. autoclass:: dash_google_picker.Documents.GoogleDocuments
     :members:
 
+Views
+======
+
+The Views that can be passed into the Google Picker
+
+.. autoclass:: dash_google_picker.Views.ViewGroup
+    :members:
+
 Enums
 ======
 
