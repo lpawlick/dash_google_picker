@@ -5,6 +5,8 @@ Changelog
 Unreleased Changes
 ==================
 
+- Added :class:`~ViewGroup` which allows to group views together into a separate tab.
+
 Version 1.0.1
 ==================
 
