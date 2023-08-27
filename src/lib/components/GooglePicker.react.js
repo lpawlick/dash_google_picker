@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
  * Props:
  * @prop {string} id - A unique identifier for the component
  * @prop {bool} open - Determines if the picker is open
- * @prop {(string|array)} view_ids - What views should be shown in the picker. Deprecated views will return a 403 error and invalid views will return a 500 error.
+ * @prop {(string|object|array)} view_ids - What views should be shown in the picker. Deprecated views will return a 403 error and invalid views will return a 500 error.
  * @prop {string} client_id - The client_id of the Google Cloud application
  * @prop {string} scope - The scope for the Google Cloud application
  * @prop {string} developer_key - The developer key of the Google Cloud application
@@ -159,12 +159,48 @@ class GooglePicker extends Component
                 .setDeveloperKey(this.props.developer_key)
                 .setCallback(this.pickerCallback);
         
-            // Assume that this.props.view_ids is an array of view id strings
-            // If it is a single string, convert it into an array
-            const viewIds = Array.isArray(this.props.view_ids) ? this.props.view_ids : [this.props.view_ids];
-            viewIds.forEach(viewId => 
+            // Generate real viewgroups from the converted python data
+            const create_view_group = (view_group) =>
             {
-                pickerBuilder.addView(viewId);
+                var viewGroup = new window.google.picker.ViewGroup(view_group.views[0])
+                for (var i = 1; i < view_group.views.length; i++) 
+                {
+                    var viewToAdd = view_group.views[i];
+                    if (typeof viewToAdd === 'string')
+                    {
+                        viewGroup.addView(viewToAdd);
+                    }
+                    else if (typeof viewToAdd === 'object')
+                    {
+                        if (view_group.type === "ViewGroup") 
+                        {
+                            viewGroup.addView(create_view_group(viewToAdd));
+                        }
+                    }
+                }
+                if (view_group.label)
+                {
+                    viewGroup.addLabel(view_group.label)
+                }
+                return viewGroup;
+            }
+
+            // Views can either be a viewid or a viewgroup, or an array containing any combination of the two
+            const views = Array.isArray(this.props.view_ids) ? this.props.view_ids : [this.props.view_ids];
+            views.forEach(view => 
+            {
+                if (typeof view === 'string') 
+                {
+                    pickerBuilder.addView(view);
+                } 
+                else if (typeof view === 'object')
+                {
+                    if (view.type === "ViewGroup") 
+                    {
+                        console.log(create_view_group(view));
+                        pickerBuilder.addViewGroup(create_view_group(view));
+                    }
+                }
             });
         
             // Enable features
@@ -328,7 +364,10 @@ GooglePicker.propTypes =
      */
     view_ids: PropTypes.oneOfType([
         PropTypes.string,
-        PropTypes.arrayOf(PropTypes.string)
+        PropTypes.object,
+        PropTypes.arrayOf(PropTypes.string),
+        PropTypes.arrayOf(PropTypes.object),
+        PropTypes.arrayOf(PropTypes.string, PropTypes.object),
     ]),
 
     /**
