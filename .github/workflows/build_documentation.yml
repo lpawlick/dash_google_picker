@@ -42,16 +42,21 @@ jobs:
 
       - name: Deploy to lpawlick.github.io
         run: |
-            git config --global user.name 'github-actions[bot]'
-            git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-            git clone https://${{ secrets.ACCESS_TOKEN }}@github.com/lpawlick/lpawlick.github.io.git
-            mkdir -p lpawlick.github.io/projects/${{ steps.extract_repo.outputs.current_repo }}/
-            cp -r ./_build/* lpawlick.github.io/projects/${{ steps.extract_repo.outputs.current_repo }}/
-            cd lpawlick.github.io
-            git add .
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git clone https://${{ secrets.ACCESS_TOKEN }}@github.com/lpawlick/lpawlick.github.io.git
+          mkdir -p lpawlick.github.io/projects/${{ steps.extract_repo.outputs.current_repo }}/
+          cp -r ./_build/* lpawlick.github.io/projects/${{ steps.extract_repo.outputs.current_repo }}/
+          cd lpawlick.github.io
+          git add .
+          # Check if there are changes to commit
+          if [[ -n "$(git status --porcelain)" ]]; then
             COMMIT_MESSAGE="${{ github.event.head_commit.message }}"
             if [ -z "$COMMIT_MESSAGE" ]; then
               COMMIT_MESSAGE="Manual ${{ steps.extract_repo.outputs.current_repo }} Documentation Update"
             fi
             git commit -m "$COMMIT_MESSAGE"
             git push https://${{ secrets.ACCESS_TOKEN }}@github.com/lpawlick/lpawlick.github.io.git
+          else
+            echo "No changes to commit. Skipping commit and push."
+          fi
