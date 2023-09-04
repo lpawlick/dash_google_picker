@@ -60,6 +60,9 @@ Views
 
 The Views that can be passed into the Google Picker
 
+.. autoclass:: dash_google_picker.Views.View
+    :members:
+
 .. autoclass:: dash_google_picker.Views.ViewGroup
     :members:
 
