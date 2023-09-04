@@ -5,6 +5,14 @@ Changelog
 Unreleased Changes
 ==================
 
+Version 1.1.0
+==================
+
+Release Date: 2023-09-05
+
+Changes
+------------------
+
 - Added :class:`~View` which allows to limit the files shown in the View.
 - Added :class:`~ViewGroup` which allows to group views together into a separate tab.
 
