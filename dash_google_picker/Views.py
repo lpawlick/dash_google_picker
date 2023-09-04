@@ -50,7 +50,7 @@ class ViewGroup():
     :param label: The label shown only on the root view of this group.
     """
     def __init__(self, *args : List[str], label : Union[str, None] = None):
-        if not args or not isinstance(args[0], str):
+        if not args or (not isinstance(args[0], str) and not isinstance(args[0], View)):
             raise ValueError("A ViewGroup needs one ViewID as root item")
         
         self.views = list(args)

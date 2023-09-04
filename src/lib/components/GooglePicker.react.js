@@ -162,7 +162,7 @@ class GooglePicker extends Component
             // Generate real viewgroups from the converted python data
             const create_view_group = (view_group) =>
             {
-                var viewGroup = new window.google.picker.ViewGroup(view_group.views[0])
+                var viewGroup = new window.google.picker.ViewGroup(create_view(view_group.views[0]))
                 for (var i = 1; i < view_group.views.length; i++) 
                 {
                     var viewToAdd = view_group.views[i];
@@ -172,9 +172,14 @@ class GooglePicker extends Component
                     }
                     else if (typeof viewToAdd === 'object')
                     {
-                        if (view_group.type === "ViewGroup") 
+                        console.log(viewToAdd)
+                        if (viewToAdd.type === "ViewGroup") 
                         {
                             viewGroup.addView(create_view_group(viewToAdd));
+                        }
+                        if (viewToAdd.type === "View") 
+                        {
+                            viewGroup.addView(create_view(viewToAdd));
                         }
                     }
                 }
@@ -188,6 +193,11 @@ class GooglePicker extends Component
             // Generate a real view from the converted python data
             const create_view = (view_struct) =>
             {
+                // Check if view_struct is actually a viewId
+                if (typeof view_struct === 'string')
+                {
+                    return new window.google.picker.View(view_struct)
+                }
                 var view = new window.google.picker.View(view_struct.viewId)
                 if (view_struct.mimeTypes)
                 {

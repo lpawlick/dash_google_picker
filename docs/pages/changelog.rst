@@ -5,6 +5,7 @@ Changelog
 Unreleased Changes
 ==================
 
+- Added :class:`~View` which allows to limit the files shown in the View.
 - Added :class:`~ViewGroup` which allows to group views together into a separate tab.
 
 Version 1.0.1
