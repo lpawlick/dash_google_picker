@@ -1,5 +1,47 @@
 from typing import Union, List, Dict
 
+class View:
+    """
+    A View is a Tab in the Google Picker window which shows a list of files, it can also be used to prefill searches and filter by mimeTypes.
+    
+    :param viewId: The :class:`~ViewId` that gets used to create the View.
+    :param mimeTypes: A single or a list of mimeTypes which are allowed to be shown in this View. If None is passed, no filtering is applied.
+    :param query: A query string to prefill the search bar in the Google Picker window. The user can edit or remove this text freely.
+    """
+    def __init__(self, viewId : str, mimeTypes : Union[str, List[str]] = None, query : str = None):
+        self.viewId = viewId
+        self.mimeTypes = mimeTypes
+        self.query = query
+
+    def getId() -> str:
+        """
+        Returns the ViewId of this View.
+
+        :return: The ViewId of this View.
+        """
+        return self.viewId
+
+    def setMimeTypes(mimeTypes : Union[str, List[str]]):
+        """
+        Sets the mimeTypes of files which should be shown in this View. Overwrites any previous mimeTypes.
+        """
+        if isInstance(mimeTypes, str):
+            self.mimeTypes = [mimeTypes]
+        else:
+            self.mimeTypes = mimeTypes
+
+    def setQuery(query : str):
+        """
+        Sets the query string of this View, this can be changed by the user. Overwrites any previous query.
+        """
+        self.query = query
+
+    def to_plotly_json(self) -> Dict[str, Union[str, List[str], None]]:
+        """
+        Converts the View to a dictionary for plotly. This is used internally by dash to pass the ViewGroup to the react frontend.
+        """
+        return {"type": "View", "viewId" : self.viewId, "mimeTypes" : self.mimeTypes, "query" : self.query}
+
 class ViewGroup():
     """
     A ViewGroup is a collection of one or many Views. It can be used to group Views into a separate tab in the :class:`~GooglePicker`.
